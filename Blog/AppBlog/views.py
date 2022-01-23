@@ -24,4 +24,9 @@ def artistas_formulario(request):
            return redirect('artistas')
     else:
         formulario = ArtistasForm()
+<<<<<<< HEAD
         return render (request, 'AppBlog/artistasFormulario.html', {'formulario', formulario})
+=======
+        return render (request, 'AppBlog/artistasFormulario.html')
+    return render(request, "AppBlog/artista.html",{})
+>>>>>>> ccde5510124406a330969b16e5a7f4cae331160e
