@@ -16,3 +16,4 @@ class Cliente(models.Model):
     nombre = models.CharField(max_length=40)
     artistaAlQueLeCompro = models.CharField(max_length=40)
     galeriaALaQueLeCompro = models.CharField(max_length=40)
+    
