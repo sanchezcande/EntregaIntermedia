@@ -2,16 +2,18 @@ from django.shortcuts import render, redirect
 from django.template import loader
 from forms import ArtistasForm
 
+
 def inicio(request):
-    return render(request, "AppBlog/inicio.html")
+    return render(request, "AppBlog/inicio.html",{})
 
 def galeria(request):
-    return render(request, "AppBlog/galeria.html")
+    return render(request, "AppBlog/galeria.html",{})
 
 def clientes(request):
-    return render(request, "AppBlog/clientes.html")
+    return render(request, "AppBlog/clientes.html",{})
 
 def artista(request):
+<<<<<<< HEAD
     return render(request, "AppBlog/artista.html")
 
 def artistas_formulario(request):
@@ -24,3 +26,6 @@ def artistas_formulario(request):
     else:
         formulario = ArtistasForm()
         return render (request, 'AppBlog/artistasFormulario.html')
+=======
+    return render(request, "AppBlog/artista.html",{})
+>>>>>>> 9081cf56b309337107a4482544721c85e46b901f
