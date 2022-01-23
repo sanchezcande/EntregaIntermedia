@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.template import loader
-from forms import ArtistasForm
+from .forms import ArtistasForm
 
 
 def inicio(request):
