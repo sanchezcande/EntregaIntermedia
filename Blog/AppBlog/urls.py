@@ -1,13 +1,11 @@
 from django.urls import path
-# from AppBlog import views
-# from django.urls import path
-from .views import inicio, galeria, artista, clientes
+from AppBlog import views
 
 
 urlpatterns = [
-    path('', inicio, name='inicio'),
-    path('galeria/', galeria, name='galeria'),
-    path('artista/', artista, name='artistas'),
-    path('clientes/', clientes, name='clientes'),
-    # path('entregables', views.entregables, name = "entregables"),
+    path('', views.inicio, name = "inicio"),
+    path('galeria', views.galeria, name = "galeria"),
+    path('artista', views.artista, name = "artista"),
+    path('clientes', views.clientes, name = "clientes"),
+    path('artistasFormulario', views.artistas_formulario, name = "artistas_formulario"),
 ]

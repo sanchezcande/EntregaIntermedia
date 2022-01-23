@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.template import loader
-from forms import ArtistasForm
+from AppBlog.forms import ArtistasForm
 
 
 def inicio(request):
@@ -13,7 +13,6 @@ def clientes(request):
     return render(request, "AppBlog/clientes.html",{})
 
 def artista(request):
-<<<<<<< HEAD
     return render(request, "AppBlog/artista.html")
 
 def artistas_formulario(request):
@@ -25,7 +24,4 @@ def artistas_formulario(request):
            return redirect('artistas')
     else:
         formulario = ArtistasForm()
-        return render (request, 'AppBlog/artistasFormulario.html')
-=======
-    return render(request, "AppBlog/artista.html",{})
->>>>>>> 9081cf56b309337107a4482544721c85e46b901f
+        return render (request, 'AppBlog/artistasFormulario.html', {'formulario', formulario})
