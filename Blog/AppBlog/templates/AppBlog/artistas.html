@@ -9,7 +9,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <h1>Artistas</h1>
-                        <span class="subheading">Aqui van los artistas</span>
+                        <span class="subheading">Nuestros artistas son:</span>
                     </div>
                 </div>
             </div>
@@ -17,8 +17,14 @@
     </header> 
 {%endblock%}
 
-{%block contenidoQueCambia%}
 
-<h3>Info adicional artistas</h3>
+{% block contenidoQueCambia %}
+   
+    {% for artista in artistas %}
+        {{ artista }} 
+        <br>
+        
+    {% endfor %}
 
-{%endblock%}
+    <a class="btn btn-primary" href="{% url 'artistas_formulario' %}">Agregar</a>
+{% endblock %}

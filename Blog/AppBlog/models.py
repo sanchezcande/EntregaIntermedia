@@ -6,6 +6,10 @@ class Artista(models.Model):
     edad = models.IntegerField()
     experiencia = models.IntegerField()
     trabajosRealizados = models.CharField(max_length=100)
+    galeria=models.CharField(max_length=60)
+
+    def __str__(self):
+        return f'Artista {self.nombre} ({self.galeria})'
 
 class Galeria(models.Model):
     nombre = models.CharField(max_length=40)

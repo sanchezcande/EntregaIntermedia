@@ -3,19 +3,20 @@
 {% load static %}
 
 {%block Header%}
-    <header class="masthead" style="background-image: url({%static 'AppBlog/assets/img/home-bg.jpg' %})">
+    <header class="masthead" style="background-image: url({%static 'AppBlog/assets/img/artistas.jpeg' %})">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
-                        <h1>Proyecto Blog</h1>
-                        <span class="subheading">Ingrese el nombre del Artista y la Galería en la cual va a exponer</span>
+                        <h1>Artistas</h1>
+                        <span class="subheading">Aqui van los artistas</span>
                     </div>
                 </div>
             </div>
         </div>
     </header> 
 {%endblock%}
+
 
 {%block contenidoQueCambia%}
 
@@ -32,12 +33,16 @@
 
 {% endif %}
 
-{%csrf_token%}
+    <form action="" method="POST"> 
+        {% csrf_token %}
 
-<table>
-    
-    {{formulario.as_table}}
+        <table>
+            {{ formulario.as_table }}
+        </table>
 
-</table>
+
+        <input type="submit" value="Enviar">
+
+    </form>
 
 {%endblock%}
