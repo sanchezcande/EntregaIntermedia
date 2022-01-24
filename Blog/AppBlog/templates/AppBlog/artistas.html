@@ -20,11 +20,16 @@
 
 {% block contenidoQueCambia %}
    
-    {% for artista in artistas %}
-        {{ artista }} 
-        <br>
-        
-    {% endfor %}
+<h3>Los artistas son...</h3>
 
-    <a class="btn btn-primary" href="{% url 'artistas_formulario' %}">Agregar</a>
+{% for artista in artistas %}
+    {{ artista }}
+    <br>
+{% endfor %}
+
+<a class="btn btn-primary" href="{% url 'artistas_formulario' %}">Agregar</a>
+{% endblock %}
+
+{% block titulo %}
+Artistas
 {% endblock %}

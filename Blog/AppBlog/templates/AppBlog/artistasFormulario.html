@@ -10,39 +10,25 @@
                     <div class="site-heading">
                         <h1>Artistas</h1>
                         <span class="subheading">Aqui van los artistas</span>
+
+                            {% if formulario.errors %}
+                            <p style="color: red;">{{ formulario.errors }}</p>
+                            {% endif %}
+
+
+                        <form action="" method="POST">
+                        {% csrf_token %}
+
+                        <table>
+                         {{ formulario.as_table }}
+                        </table>
+
+                        <input type="submit" value="Enviar">
+                        </form> 
+                    
                     </div>
                 </div>
             </div>
         </div>
     </header> 
-{%endblock%}
-
-
-{%block contenidoQueCambia%}
-
-{% for artista in artistas %}
-
-    {{artista}}
-      <br>
-
-{% endfor %}
-
-{%if formulario.errors %}
-
-    <p style="color: red;"> {{ formulario.errors}}</p>
-
-{% endif %}
-
-    <form action="" method="POST"> 
-        {% csrf_token %}
-
-        <table>
-            {{ formulario.as_table }}
-        </table>
-
-
-        <input type="submit" value="Enviar">
-
-    </form>
-
 {%endblock%}

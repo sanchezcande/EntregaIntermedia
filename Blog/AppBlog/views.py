@@ -4,6 +4,11 @@ from .forms import ArtistasForm
 from .models import *
 from django.http import HttpResponse
 
+def crear_artista(request, camada):
+    artista = Artista(nombre='Van Gogh', galeria=galeria)
+    artista.save()
+
+    return HttpResponse(f'Artista creado! {artista}')
 
 def inicio(request):
     return render(request, "AppBlog/inicio.html",{})
@@ -17,24 +22,28 @@ def clientes(request):
 def artistas(request):
     return render(request, "AppBlog/artistas.html")
 
+def busqueda_artista(request):
+    return render(request, 'AppBlog/busquedaArtistas.html')
+
 def artistas_formulario(request):
     if request.method == 'POST':
-       formulario = ArtistasForm(request.POST)
-       
-       if formulario.is_valid():
-           data=formulario.cleaned_data
-           Artista.objects.create(artistas=data['artistas'], galeria=data['artistas'])
-           return redirect('artistas')
+        formulario = ArtistasForm(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            Artista.objects.create(nombre=data['artista'], galeria=data['galeria'])
+            return redirect('artistas')
     else:
         formulario = ArtistasForm()
-    return render (request, 'AppBlog/artistasFormulario.html', {'formulario': formulario})
+    return render(request, 'AppBlog/artistasFormulario.html', {'formulario': formulario})
 
 def buscar(request):
-    artista= request.GET.get("artista")
+    galeria = request.GET.get("galeria")
     
-    if artista: 
-        galeria= Artista.objects.filter(artista=artista)
+    if galeria:
+        artistas = Artista.objects.filter(galeria=galeria)
+
         return render(request, 'AppCoder/buscar.html',
-        {'artistas': artistas, 'galeria': galeria})
+            {'artistas': artistas, 'galeria': galeria})
     else:
-        return HttpResponse('No se envió un artista válido') 
+        return HttpResponse('No se envió una galería válida')
