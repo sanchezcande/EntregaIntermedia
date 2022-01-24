@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.template import loader
-from .forms import ArtistasForm
+from .forms import ArtistasForm, ClientesForm, GaleriasForm
 from .models import *
 from django.http import HttpResponse
 
@@ -43,7 +43,31 @@ def buscar(request):
     if galeria:
         artistas = Artista.objects.filter(galeria=galeria)
 
-        return render(request, 'AppCoder/buscar.html',
+        return render(request, 'AppBlog/buscar.html',
             {'artistas': artistas, 'galeria': galeria})
     else:
         return HttpResponse('No se envió una galería válida')
+    
+def clientes_formulario(request):
+    if request.method == 'POST':
+        formulario = ClientesForm(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            Cliente.objects.create(nombre=data['nombre'], artistaAlQueLeCompro=data['artistaAlQueLeCompro'], galeriaALaQueLeCompro=data['galeriaALaQueLeCompro'])
+            return redirect('clientes')
+    else:
+        formulario = ClientesForm()
+    return render(request, 'AppBlog/clientesFormulario.html', {'formulario': formulario})
+
+def galerias_formulario(request):
+    if request.method == 'POST':
+        formulario = GaleriasForm(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            Galeria.objects.create(nombre=data['nombre'], direccion=data['direccion'], artistasQueExponen=data['artistasQueExponen'])
+            return redirect('galerias')
+    else:
+        formulario = GaleriasForm()
+    return render(request, 'AppBlog/galeriasFormulario.html', {'formulario': formulario})

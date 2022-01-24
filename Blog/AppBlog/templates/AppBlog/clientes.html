@@ -9,16 +9,15 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <h1>Clientes</h1>
-                        <span class="subheading">Aqui van los Clientes</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header> 
-{%endblock%}
+                        <span class="subheading">Ingrese sus datos:</span>
+                        {% comment %} {% block contenidoQueCambia %} {% endcomment %}
+   
+                        <h3>...</h3>
 
-{%block contenidoQueCambia%}
+                        {% for cliente in clientes %}
+                            {{ cliente }}
+                             <br>
+                        {% endfor %}
 
-<h3>Info adicional clientes</h3>
-
-{%endblock%}
+                        <a class="btn btn-primary" href="{% url 'clientes_formulario' %}">Agregar</a>
+                         {% endblock %}

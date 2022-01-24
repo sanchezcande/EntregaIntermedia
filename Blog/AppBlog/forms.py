@@ -5,7 +5,7 @@ class ArtistasForm(Form):
     galeria=CharField(max_length=60)
 
 class ClientesForm(Form):
-    cliente=CharField(max_length=60)
+    nombre=CharField(max_length=60)
     artistaAlQueLeCompro = CharField(max_length=40)
     galeriaALaQueLeCompro = CharField(max_length=40)
     
