@@ -1,26 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artistas</title>
-</head>
-<body>
+{% extends 'AppBlog/padre.html' %}
+
+
+{% load static %}
+
+{%block Header%}
+    <header class="masthead" style="background-image: url({%static 'AppBlog/assets/img/galerias-de-arte.jpeg' %})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Busqueda Galerias</h1>
+                        <span class="subheading">Estos son los artistas que exponen en la galeria  {{ galeria }}</span>
+
+                        {%if artistas %}
     
-    Estoy buscando a los artistas que exponen en la galeria  {{ galeria }}
-
-    {%if artistas %}
-    
-    <ul>
-        {% for artista in artistas %}
-            <li>{{ artista }}</li>
-
-        {% endfor %}
-    </ul>
-
-    {% endif %}
-
-
-</body>
-</html>
+                        <ul>
+                            {% for artista in artistas %}
+                                <li>{{ artista }}</li>
+                    
+                            {% endfor %}
+                        </ul>
+                        {% else %} 
+                        <p>
+                            No hay artistas en esa galeria
+                        </p>
+                        {% endif %}
+                    
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header> 
+{%endblock%}
