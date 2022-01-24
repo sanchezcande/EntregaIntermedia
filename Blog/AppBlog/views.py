@@ -14,13 +14,16 @@ def inicio(request):
     return render(request, "AppBlog/inicio.html",{})
 
 def galeria(request):
-    return render(request, "AppBlog/galeria.html",{})
+    return render(request, "AppBlog/galerias.html",{})
 
 def clientes(request):
     return render(request, "AppBlog/clientes.html",{})
 
 def artistas(request):
-    return render(request, "AppBlog/artistas.html")
+    artistas= Artista.objects.all()
+    return render(request, "AppBlog/artistas.html",{'artistas': artistas})
+
+
 
 def busqueda_artista(request):
     return render(request, 'AppBlog/busquedaArtistas.html')
@@ -31,7 +34,7 @@ def artistas_formulario(request):
 
         if formulario.is_valid():
             data = formulario.cleaned_data
-            Artista.objects.create(nombre=data['artista'], galeria=data['galeria'])
+            Artista.objects.create(nombre=data['artista'], galeria=data['galeria'] )
             return redirect('artistas')
     else:
         formulario = ArtistasForm()
