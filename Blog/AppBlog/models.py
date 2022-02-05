@@ -11,8 +11,6 @@ class Artista(models.Model):
     def __str__(self):
         return f'Artista {self.nombre} ({self.galeria})'
 
-    def __str__(self):
-        return f'Artista {self.nombre} ({self.galeria})'
 
 class Galeria(models.Model):
     nombre = models.CharField(max_length=40)
