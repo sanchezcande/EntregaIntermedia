@@ -15,9 +15,16 @@
                         <h3>...</h3>
 
                         {% for cliente in clientes %}
-                            {{ cliente }}
-                             <br>
-                        {% endfor %}
+                        <a href="{% url 'cliente_view' cliente.id %}">{{ cliente }}</a>
+                        <a href="{% url 'cliente_delete' cliente.id %}">Borrar</a>
+                        <a href="{% url 'cliente_update' cliente.id %}">Editar</a>
+                        <br>
+                    {% endfor %}
+                
+                    <a class="btn btn-primary" href="{% url 'cliente_add' %}">Agregar</a>
 
-                        <a class="btn btn-primary" href="{% url 'clientes_formulario' %}">Agregar</a>
-                         {% endblock %}
+                {% endblock %}
+                
+
+                        
+                     

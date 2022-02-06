@@ -3,28 +3,29 @@
 {% load static %}
 
 {%block Header%}
-    <header class="masthead" style="background-image: url({%static 'AppBlog/assets/img/home-bg.jpeg' %})">
+    <header class="masthead" style="background-image: url({%static 'AppBlog/assets/img/artistas.jpeg' %})">
         <div class="container position-relative px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="site-heading">
                         <h1>Clientes</h1>
-                        <span class="subheading">Ingrese sus datos</span>
+                        <span class="subheading">Ingrese su nombre y datos </span>
 
-                            {% if formulario.errors %}
-                            <p style="color: red;">{{ formulario.errors }}</p>
-                            {% endif %}
-
-
-                        <form action="" method="POST">
+                        {% if form.errors %}
+                        <p style="color: red;"> {{form.errors}} </p>
+                    {% endif %}
+                
+                    <form action="" method="POST"> 
                         {% csrf_token %}
-
+                
                         <table>
-                         {{ formulario.as_table }}
+                            {{ form.as_table }}
                         </table>
-
+                
+                
                         <input type="submit" value="Enviar">
-                        </form> 
+                
+                    </form>
                     
                     </div>
                 </div>

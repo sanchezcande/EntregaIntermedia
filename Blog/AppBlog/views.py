@@ -1,8 +1,12 @@
+from multiprocessing.connection import Client
 from django.shortcuts import render, redirect
 from django.template import loader
+from django.urls import reverse_lazy
 from .forms import ArtistasForm, ClientesForm, GaleriasForm
 from .models import *
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 def crear_artista(request, camada):
     artista = Artista(nombre='Van Gogh', galeria=galeria)
@@ -74,3 +78,30 @@ def galerias_formulario(request):
     else:
         formulario = GaleriasForm()
     return render(request, 'AppBlog/galeriasFormulario.html', {'formulario': formulario})
+
+
+class ClienteListView(ListView):
+    model = Cliente
+    template_name = 'AppBlog/clientes.html' 
+    context_object_name = 'clientes'   
+
+class ClienteDetailView(DetailView):
+    model = Cliente
+    template_name = 'AppBlog/ver_cliente.html' 
+
+class ClienteCreateView(CreateView):
+    model = Cliente
+    success_url =  reverse_lazy ('clientes')
+    fields = ['nombre', 'artistaAlQueLeCompro','galeriaEnQueCompro' ]
+    template_name = 'AppBlog/cliente_form.html' 
+
+class ClienteUpdateView(UpdateView):
+    model = Cliente
+    success_url =  reverse_lazy ('clientes')
+    fields = ['nombre', 'artistaAlQueLeCompro','galeriaEnQueCompro' ]
+    template_name = 'AppBlog/cliente_form.html' 
+ 
+class ClienteDeleteView(DeleteView):
+    model = Cliente
+    success_url = reverse_lazy('clientes')
+    template_name = 'AppBlog/cliente_delete.html' 

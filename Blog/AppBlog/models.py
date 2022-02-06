@@ -9,7 +9,7 @@ class Artista(models.Model):
     galeria=models.CharField(max_length=60,null=True, blank=True)
     
     def __str__(self):
-        return f'Artista {self.nombre} ({self.galeria})'
+        return f'{self.nombre} ({self.galeria})'
 
 
 class Galeria(models.Model):
@@ -17,8 +17,14 @@ class Galeria(models.Model):
     direccion = models.CharField(max_length=40)
     artistasQueExponen = models.CharField(max_length=100)
     
+    def __str__(self):
+        return f'La galería {self.nombre} queda en la dirección {self.direccion}.'
+    
 class Cliente(models.Model):
-    nombre = models.CharField(max_length=40)
-    artistaAlQueLeCompro = models.CharField(max_length=40)
-    galeriaALaQueLeCompro = models.CharField(max_length=40)
+    nombre = models.CharField(max_length=40, verbose_name='nombre y apellido')
+    artistaAlQueLeCompro = models.CharField(max_length=40, verbose_name='Autor de la obra', blank=True, null=True)
+    galeriaEnQueCompro = models.CharField(max_length=40, verbose_name='Galería en la adquirió la obra', blank=True, null=True)
+    
+    def __str__(self):
+        return f'{self.nombre} le compró al artista {self.artistaAlQueLeCompro} en la galería {self.galeriaEnQueCompro}.'
     
