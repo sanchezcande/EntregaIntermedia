@@ -4,9 +4,14 @@ from django.template import loader
 from django.urls import reverse_lazy
 from .forms import ArtistasForm, ClientesForm, GaleriasForm
 from .models import *
-from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.http import HttpResponse
+from AppBlog.forms import UserEditForm, UserRegisterForm
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 def crear_artista(request, camada):
     artista = Artista(nombre='Van Gogh', galeria=galeria)
@@ -16,6 +21,12 @@ def crear_artista(request, camada):
 
 def inicio(request):
     return render(request, "AppBlog/inicio.html",{})
+
+def not_pages_yet(request):
+    return render(request, "AppBlog/not_pages_yet.html",{})
+
+def about_us(request):
+    return render(request, "AppBlog/about_us.html",{})
 
 def galeria(request):
     return render(request, "AppBlog/galerias.html",{})
@@ -105,3 +116,56 @@ class ClienteDeleteView(DeleteView):
     model = Cliente
     success_url = reverse_lazy('clientes')
     template_name = 'AppBlog/cliente_delete.html' 
+    
+
+def login_request (request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, request.POST)
+        
+        if form.is_valid():
+            usuario = form.cleaned_data['username']
+            contraseña = form.cleaned_data['password']
+            user = authenticate(username=usuario, password=contraseña)
+            
+            if user is not None:
+                login(request, user)
+                return redirect('inicio')
+            else:
+                return redirect(request, 'AppBlog/login.html', 
+                            {'form': form,
+                             'error': 'No es válido el usuario y contraseña' })  #Este código se podría ignorar
+
+        else:
+            return render(request, 'AppBlog/login.html', {'form': form})
+        
+    else:
+        form=AuthenticationForm()
+        return render(request, 'AppBlog/login.html', {'form': form})
+    
+
+class UserCreateView(CreateView):
+    model=User
+    success_url = reverse_lazy('login')
+    template_name = 'AppBlog/register.html'
+    form_class = UserRegisterForm
+    
+@login_required
+def editar_perfil(request):
+    usuario = request.user
+    
+    if request.method == "POST":
+        formulario= UserEditForm(request.POST)
+        if formulario.is_valid():
+            data=formulario.cleaned_data
+            usuario.email=data['email']
+            usuario.set_password(data['password1'])
+            usuario.first_name=data['first_name']
+            usuario.last_name=data['last_name']
+            usuario.save()
+            return redirect('inicio')
+
+            
+    else:
+        formulario = UserEditForm ({'email': usuario.email})
+        
+    return render(request, 'AppBlog/register.html', {'form': formulario})
