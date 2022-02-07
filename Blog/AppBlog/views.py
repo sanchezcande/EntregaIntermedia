@@ -133,7 +133,7 @@ def login_request (request):
             else:
                 return redirect(request, 'AppBlog/login.html', 
                             {'form': form,
-                             'error': 'No es válido el usuario y contraseña' })  #Este código se podría ignorar
+                             'error': 'No es válido el usuario y contraseña' }) 
 
         else:
             return render(request, 'AppBlog/login.html', {'form': form})

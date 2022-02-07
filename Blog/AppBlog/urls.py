@@ -12,7 +12,7 @@ urlpatterns = [
     path('artistasFormulario/', artistas_formulario, name = 'artistas_formulario'),
     path('', inicio, name='inicio'),
     path('galerias/', galeria, name='galerias'),
-    path('aboutus/', about_us, name='about_us'),
+    path('about/', about_us, name='about_us'),
     path('artistas/', artistas, name='artistas'),
     path('buscar/', buscar, name='buscar'),
     path('busquedaArtistas/', busqueda_artista, name='busqueda_artista'),
@@ -23,8 +23,10 @@ urlpatterns = [
     path('clientes/delete/<pk>', views.ClienteDeleteView.as_view(), name='cliente_delete'),
     path('clientes/view/<pk>', views.ClienteDetailView.as_view(), name='cliente_view'),
     path('404', not_pages_yet, name='not_pages_yet'),
-    path('login/', LoginView.as_view(template_name='login.html'), name='login'),
-    path('register/', UserCreateView.as_view(template_name='register.html'), name='register'),
-    path('logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('user/edit/', editar_perfil, name='user_editar')
+    path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('accounts/signup/', UserCreateView.as_view(template_name='register.html'), name='register'),
+    path('accounts/logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
+    path('accounts/profile/', editar_perfil, name='user_editar')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
