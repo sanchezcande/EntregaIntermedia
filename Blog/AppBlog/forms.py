@@ -1,4 +1,4 @@
-from django.forms import Form, CharField, BooleanField, EmailField, PasswordInput
+from django.forms import Form, CharField, BooleanField, EmailField, PasswordInput, ImageField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -18,10 +18,13 @@ class GaleriasForm(Form):
     
 
 class UserRegisterForm(UserCreationForm):
-    
+  
+    first_name = CharField(label='Nombre')  
+    last_name = CharField(label='Apellido')
     email = EmailField()
     password1 = CharField(label='Contraseña', widget=PasswordInput)
     password2 = CharField(label='Repetir Contraseña', widget=PasswordInput)
+    is_staff = BooleanField(label='Es admin?')
     
     class Meta:
         model = User
@@ -42,6 +45,7 @@ class UserEditForm(UserCreationForm):
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
         help_texts = {k: '' for k in fields}
 
-    
+class AvatarFormulario(Form):
+    imagen = ImageField(required=True)
     
     

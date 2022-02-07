@@ -26,7 +26,8 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('accounts/signup/', UserCreateView.as_view(template_name='register.html'), name='register'),
     path('accounts/logout', LogoutView.as_view(template_name='logout.html'), name='logout'),
-    path('accounts/profile/', editar_perfil, name='user_editar')
+    path('accounts/profile/', editar_perfil, name='user_editar'),
+    path('accounts/avatar/add/', views.agregar_avatar, name='avatar_add')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

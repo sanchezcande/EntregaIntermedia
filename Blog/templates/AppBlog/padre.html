@@ -36,7 +36,7 @@
                         {% if not request.user.is_authenticated %}
                         <a class="btn btn-primary" href="{% url 'login' %}">INICIAR SESIÓN</a>
                          {% else %}
-                        <p class="text-muted small mb-4 mb-lg-0">Hola {{user.fist_name}}!! </p>
+                        <p class="text-muted small mb-4 mb-lg-0"> Hola {{user.first_name}} </p>
                        <img src=" {{avatar_url}} " height="50px"/>
                         <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
                          {% endif %}
@@ -125,7 +125,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div>
+                        <!-- <div class="small text-center text-muted fst-italic">Copyright &copy; Your Website 2021</div> -->
                     </div>
                 </div>
             </div>

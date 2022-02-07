@@ -1,8 +1,9 @@
+from doctest import ELLIPSIS_MARKER
 from multiprocessing.connection import Client
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.urls import reverse_lazy
-from .forms import ArtistasForm, ClientesForm, GaleriasForm
+from .forms import ArtistasForm, ClientesForm, GaleriasForm, AvatarFormulario
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -19,8 +20,18 @@ def crear_artista(request, camada):
 
     return HttpResponse(f'Artista creado! {artista}')
 
+# @login_required
 def inicio(request):
-    return render(request, "AppBlog/inicio.html",{})
+    if request.user.is_authenticated:
+        avatares = Avatar.objects.filter(user=request.user)
+    else:
+        avatares=''
+    
+    if avatares:
+        avatar_url = avatares.last().imagen.url
+    else: 
+        avatar_url = ''
+    return  render(request, 'AppBlog/inicio.html', {'avatar_url': avatar_url})
 
 def not_pages_yet(request):
     return render(request, "AppBlog/not_pages_yet.html",{})
@@ -131,16 +142,16 @@ def login_request (request):
                 login(request, user)
                 return redirect('inicio')
             else:
-                return redirect(request, 'AppBlog/login.html', 
+                return redirect(request, 'login.html', 
                             {'form': form,
                              'error': 'No es válido el usuario y contraseña' }) 
 
         else:
-            return render(request, 'AppBlog/login.html', {'form': form})
+            return render(request, 'login.html', {'form': form})
         
     else:
         form=AuthenticationForm()
-        return render(request, 'AppBlog/login.html', {'form': form})
+        return render(request, 'login.html', {'form': form})
     
 
 class UserCreateView(CreateView):
@@ -169,3 +180,17 @@ def editar_perfil(request):
         formulario = UserEditForm ({'email': usuario.email})
         
     return render(request, 'AppBlog/register.html', {'form': formulario})
+
+@login_required
+def agregar_avatar(request):
+    if request.method == 'POST':
+        formulario =AvatarFormulario(request.POST, request.FILES)
+        
+        if formulario.is_valid():
+            avatar = Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+            avatar.save()
+            return redirect('inicio')
+    else:
+        formulario= AvatarFormulario()
+        
+    return render(request, 'AppBlog/crear_avatar.html', {'form': formulario})
